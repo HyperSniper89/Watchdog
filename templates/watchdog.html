@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <title>Watchdog - PiStream</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     body {
       margin: 0;
@@ -42,8 +43,7 @@
       padding: 16px;
       margin-bottom: 30px;
     }
-    
-    
+        
     .camera-movement{
       float: none;
       position: absolute;
@@ -60,9 +60,7 @@
       display: inline-block;
       border-radius: 60px;
       box-shadow: 0px 0px 2px #888;
-      padding: 0.5em 0.6em;
-      
-      
+      padding: 0.5em 0.6em;      
     }
     
     img {
@@ -81,7 +79,6 @@
       outline:none;
     }
     
-    
     .camera-bg {
       position: fixed;
       top: 0;
@@ -94,23 +91,22 @@
       /* Full height */
       height: 100%;
       
-      
       /* Center and scale the image nicely */
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
-      
     }
-    
+
     .top-right-logo {
       position: absolute;
       top: 3%;
       left: 2%;
       font-size: 38px;
+      background-color: black;
       color: white;
       opacity: 0.5;
     }
-    
+        
     body {
       margin: 0;
       padding: 0;
@@ -120,11 +116,84 @@
       background-color: black;
     }
     
-    
   </style>
-  
+</head>
 
+<body>
   
+  <div class="main" id="newpost">
+    <img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">    
+  </div>
+  
+  <div class="top-right-logo">
+    <a> Watchdog - Camera Stream</a>
+  </div>
+  
+  <div class="navbar"> <!--Begin Navbar-->
+  
+    <div class="OfOnCameraView">
+      <a id=decline class="but_def">
+        <button id="buttonOfOnCam">
+          <i style="background: red; color: white;" class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+    </div>
+       
+    <div class="robotControl"> <!-- Begin div robotControl -->
+
+      <a id=go_forth class="go_forth_class">
+        <button data-value="w">
+          <i style="background: rgb(38, 232, 38); color: white;" class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+      <a id=go_left class="go_left_class">
+        <button data-value="a">
+          <i style="background: rgb(38, 232, 38); color: white;" class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>        
+        </button>
+      </a>
+
+      <a id=go_back class="go_back_class">
+        <button data-value="s">
+          <i style="background: rgb(38, 232, 38); color: white;" class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+      <a id=go_right class="go_right_class">
+        <button data-value="d">
+          <i style="background: rgb(38, 232, 38); color: white;" class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+      <a id=stop class="stop_class">
+        <button data-value="b">
+          <i style="background: red; color: white;" class="fa fa-hand-paper-o fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+      <a id=look_up class="look_up_class">
+        <button data-value="3">
+          <i style="background: blue; color: white;" class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+      <a id=look_forward class="look_forward_class">
+        <button data-value="2">
+          <i style="background: blue; color: white;" class="fa fa-eye fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+      
+      <a id=look_down class="look_down_class">
+        <button data-value="1">
+          <i style="background: blue; color: white;" class="fa fa-angle-down fa-2x" aria-hidden="true"></i>
+        </button>
+      </a>
+
+    </div> <!-- End div robotControl -->
+  </div> <!-- End Navbar-->
+
+
+  <!-- Scrip for the Robot Control -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <script>
@@ -149,104 +218,14 @@
     }
     
   </script>
+  
 
-   <!--  <script type="text/javascript">
-    //var button = document.getElementById('forward-button')
-    function moveForward() {
-      console.log("walla")
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/watchdog/road', true);
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      
-      xhr.onreadystatechange = () => { // Call a function when the state changes.
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // Request finished. Do processing here.
-          console.log('bibib')
-        }
-        xhr.send("command=w")
-      }
-    }
-  </script> -->
-</head>
-
-<title>Make - PiStream</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-  
-  
-  <div class="main" id="newpost">
-    <img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="{{ url_for('video_feed') }}">
-    <!--<img  class="camera-bg" style="width: 100%; height:80%; background-attachment: fixed;" id="bg" class="center" src="https://www.psdbox.com/wp-content/uploads/2011/01/security-camera-photoshop-effect.jpg">-->
-    
-  </div>
-  
-  
-  <div class="top-right-logo">
-    <a></a>Raspberry Pi - Camera Stream</a>
-  </div>
-  
-  
-  <div class="navbar">
-    <div class = "robotControl"> 
-      <button data-value="w">Button w
-        <i style="background: blue; color: white;" class="fa fa-arrow-up" aria-hidden="true"></i>
-      </button>
-      <button data-value="a">Button a
-        <i style="background: blue; color: white;" class="fa fa-arrow-left" aria-hidden="true"></i>
-      </button>
-      <button data-value="s">Button s
-        <i style="background: blue; color: white;" class="fa fa-arrow-down" aria-hidden="true"></i>
-      </button>
-      <button data-value="d">Button d
-        <i style="background: blue; color: white;" class="fa fa-arrow-right" aria-hidden="true"></i>
-      </button>
-      <button data-value="b">Button b
-        <i style="background: blue; color: white;" class="fa fa-key fa-fw" aria-hidden="true"></i>
-      </button>
-      <button data-value="1">Button 1
-        <i style="background: blue; color: white;" class="fa fa-shield fa-rotate-270" aria-hidden="true"></i>
-      </button>
-      <button data-value="2">Button 2
-        <i style="background: blue; color: white;" class="fa fa-shield" aria-hidden="true"></i>
-      </button>
-      <button data-value="3">Button 3
-        <i style="background: blue; color: white;" class="fa fa-shield fa-rotate-90" aria-hidden="true"></i>
-      </button>
-      
-    </div>
-    
-    <div class="ignoreCall">
-      <a id=decline class="but_def">
-        <button id="buttonCall">
-          <i style="background: red; color: white;" class="fa fa-times fa-2x" aria-hidden="true"></i>
-        </button>
-      </a>
-    </div>
-    
-    <div class="picture">
-      <a href=# id=take-picture class="picture_class">
-        <button id="take-picture-button" onclick="take_picture()">
-          <i style="background: blue; color: white;" class="fa fa-camera fa-2x" aria-hidden="true"></i>
-        </button>
-      </a>
-    </div>
-    
-    
-    
-  </div>
-  
-  
-  
-  
-  
+  <!-- Scrip for stopping camera view -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  
   <script type="text/javascript">
     
-    // stop stream - called when pressing red X
-    var button = document.getElementById('buttonCall');
+    // stop stream - called when pressing red On/Off button
+    var button = document.getElementById('buttonOfOnCam');
     
     button.onclick = function() {
       var div = document.getElementById('newpost');
@@ -258,11 +237,5 @@
       }
     };
   </script>
-  
 </body>
-
 </html>
-
-
-
-
