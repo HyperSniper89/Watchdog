@@ -1,0 +1,121 @@
+/* #include <Servo.h>
+#include <Arduino.h>
+//#include <Time.h>
+
+
+Servo servoSteering;  // create steering servo object
+Servo servoVerticalCam; // reate vertical camera servo object
+int pos = 90; //byrjunar pos á Steering servo
+int WheelCurrentEnB = 6; // Høgra síða
+int ReverseWheel = 9; //fram ella aftur finna útav tí
+int forwardDriveWheel = 11;
+
+int canonCurrentEnA = 5;
+int loadCanon = 8;
+int loadCanon2 = 7;
+
+void setup() {
+  Serial.begin(9600); // initialize serial communication at 9600 baud
+  servoSteering.attach(3);  // attaches the servo on pin 3 to the servo 
+  servoVerticalCam.attach(10);
+  pinMode(canonCurrentEnA, OUTPUT);
+  pinMode(WheelCurrentEnB, OUTPUT);
+  pinMode(ReverseWheel, OUTPUT); // set the left wheel pin as an output
+  pinMode(forwardDriveWheel, OUTPUT); // set the right wheel pin as an output
+  pinMode(loadCanon2, OUTPUT); // set the right rear wheel pin as an output
+  pinMode(loadCanon, OUTPUT); // set the left rear wheel pin as an output
+
+
+}
+
+void loop() {
+  // check for incoming characters
+  if (Serial.available() > 0) {
+    // read the incoming character
+    char incomingChar = Serial.read();
+    Serial.println("Received message: " + String(incomingChar));
+
+    // do something based on the incoming character
+    if (incomingChar == '1') { // look down
+      servoVerticalCam.write(40);
+    } else if (incomingChar == '2') {
+      servoVerticalCam.write(90);
+    }
+     else if (incomingChar == '3') {
+      servoVerticalCam.write(130);
+    }
+   
+    //drive DC motors
+    else if (incomingChar == 'w') {
+      servoSteering.write(90);
+      analogWrite(canonCurrentEnA, 0);
+      analogWrite(WheelCurrentEnB, 150);    
+      digitalWrite(loadCanon2, LOW); //7
+      digitalWrite(loadCanon, LOW); //8
+      
+      digitalWrite(ReverseWheel, LOW); //9
+      digitalWrite(forwardDriveWheel, HIGH); //11
+     
+    } 
+
+    //turn left 
+    else if (incomingChar == 'a') {
+
+      servoSteering.write(130);
+
+     
+      
+      analogWrite(canonCurrentEnA, 0); // current to canon
+      analogWrite(WheelCurrentEnB, 150); // current to canon (PWM)
+      
+      digitalWrite(loadCanon2, LOW); //7
+      digitalWrite(loadCanon, LOW); //8
+      
+      digitalWrite(ReverseWheel, LOW); //9
+      digitalWrite(forwardDriveWheel, HIGH); //11
+     
+    } 
+
+    // turn right
+    else if (incomingChar == 'd') {
+
+      servoSteering.write(30);
+      analogWrite(WheelCurrentEnB, 150);
+      analogWrite(canonCurrentEnA, 0);
+     
+      
+      digitalWrite(ReverseWheel, LOW); //9
+      digitalWrite(forwardDriveWheel, HIGH); //
+     
+    }   
+    //stop the wheels
+    else if (incomingChar == 'b') {
+      servoSteering.write(90);
+      analogWrite(canonCurrentEnA, 0);
+      analogWrite(WheelCurrentEnB, 0);
+ 
+      digitalWrite(forwardDriveWheel, LOW); //11
+      digitalWrite(ReverseWheel, LOW); //9
+     
+    } 
+    //Reverse
+    else if (incomingChar == 's') {
+      
+      analogWrite(canonCurrentEnA, 0);
+      analogWrite(WheelCurrentEnB, 150);
+ 
+      digitalWrite(forwardDriveWheel, LOW); //11
+      digitalWrite(ReverseWheel, HIGH); //9
+     
+    } 
+    //loading canon
+    else if (incomingChar == 'c') {
+      analogWrite(canonCurrentEnA, 0);
+      analogWrite(WheelCurrentEnB, 200);
+      digitalWrite(loadCanon2, LOW); //7
+      digitalWrite(loadCanon, LOW); //8
+      
+     
+    } 
+  }
+} */
